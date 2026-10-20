@@ -1,0 +1,105 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "adf-dataengineeringthendo"
+		},
+		"ls_AzureDatabricks_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "1017-115344-at8engdk"
+		},
+		"ls_AzureKeyVault_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://dataengineer-keyvault.vault.azure.net/"
+		},
+		"ls_AzureSqlDatabase_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "dataengineerthendoserver.database.windows.net"
+		},
+		"ls_AzureSqlDatabase_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "sql-db-dataengineering"
+		},
+		"ls_AzureSqlDatabase_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "thendomasuma"
+		},
+		"ls_PostgreSql_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "ep-spring-hat-b58dro5e-pooler.c-7.us-east-2.aws.neon.tech"
+		},
+		"ls_PostgreSql_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "neondb"
+		},
+		"ls_PostgreSql_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "neondb_owner"
+		},
+		"ls_adls_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://dataengineerprojecthendo.dfs.core.windows.net/"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "adf-dataengineeringthendo_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ls_AzureKeyVault_properties_typeProperties_baseUrl": {
+						"value": "[parameters('ls_AzureKeyVault_properties_typeProperties_baseUrl')]"
+					},
+					"ls_adls_properties_typeProperties_url": {
+						"value": "[parameters('ls_adls_properties_typeProperties_url')]"
+					},
+					"ls_AzureDatabricks_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('ls_AzureDatabricks_properties_typeProperties_existingClusterId')]"
+					},
+					"ls_AzureSqlDatabase_properties_typeProperties_server": {
+						"value": "[parameters('ls_AzureSqlDatabase_properties_typeProperties_server')]"
+					},
+					"ls_AzureSqlDatabase_properties_typeProperties_database": {
+						"value": "[parameters('ls_AzureSqlDatabase_properties_typeProperties_database')]"
+					},
+					"ls_AzureSqlDatabase_properties_typeProperties_userName": {
+						"value": "[parameters('ls_AzureSqlDatabase_properties_typeProperties_userName')]"
+					},
+					"ls_PostgreSql_properties_typeProperties_server": {
+						"value": "[parameters('ls_PostgreSql_properties_typeProperties_server')]"
+					},
+					"ls_PostgreSql_properties_typeProperties_database": {
+						"value": "[parameters('ls_PostgreSql_properties_typeProperties_database')]"
+					},
+					"ls_PostgreSql_properties_typeProperties_username": {
+						"value": "[parameters('ls_PostgreSql_properties_typeProperties_username')]"
+					}
+				}
+			},
+			"dependsOn": []
+		}
+	]
+}
